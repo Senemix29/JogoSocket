@@ -55,7 +55,7 @@ public class Servidor {
 		
 
 	}
-	int soma=0;
+	int soma=0, maior=0;
 	public void distribuiMensagem(String msg, int i) {
 		
 		// envia msg para todo mundo
@@ -66,8 +66,13 @@ public class Servidor {
 			}
 			
 		}
+		if (Integer.valueOf(msg)>maior){
+			maior=Integer.valueOf(msg);
+		}
+		System.out.println(" Maior valor até o momento: "+maior);
 		soma+= Integer.valueOf(msg);
-		System.out.println(" i: "+i+ "soma = "+soma);
+		System.out.println(" Com o valor enviado pelo Cliente: "+i+ " - soma = "+soma);
 		clientes.get(i).println("valor da soma até o momento " + soma);
+		
 	}
 }
