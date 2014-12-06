@@ -18,6 +18,7 @@ public class Servidor {
 	public static void main(String[] args) throws IOException {
 		// inicia o servidor
 		new Servidor(12345).executa();
+		
 	}
 
 	private int porta;

@@ -20,8 +20,8 @@ public class Cliente {
 	
 	public Cliente (String host, int porta) {
 		 this.host = host;
-		 
 		 this.porta = porta;
+		 
 		 int i=0;
 	}
 	
