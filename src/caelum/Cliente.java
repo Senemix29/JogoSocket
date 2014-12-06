@@ -36,8 +36,17 @@ public class Cliente {
 		// le msgs do teclado e manda pro servidor
 		Scanner teclado = new Scanner(System.in);
 		PrintStream saida = new PrintStream(cliente.getOutputStream());
-		while (teclado.hasNextLine()) {
-			saida.println(teclado.nextLine());			
+		int cont=0;
+		try{
+			while (teclado.hasNextLine()) {
+				saida.println(teclado.nextLine());
+				cont++;
+				if (cont==2){
+					teclado.close();
+				}
+			}
+		}catch(Exception e){
+			saida.println("Se desconectou");
 		}
 		
 		saida.close();

@@ -55,24 +55,30 @@ public class Servidor {
 		
 
 	}
-	int soma=0, maior=0;
+	int soma=0, maior=0, cliente=0;
 	public void distribuiMensagem(String msg, int i) {
 		
 		// envia msg para todo mundo
 		for (PrintStream cliente : this.clientes) {
 			if ( clientes.indexOf(cliente) != i ){
-				cliente.println(" Cliente "+i +": " + msg);
+				cliente.println("Cliente "+i +": " + msg);
 				
 			}
 			
 		}
-		if (Integer.valueOf(msg)>maior){
-			maior=Integer.valueOf(msg);
+		if (!(msg.equals("Se desconectou"))){
+			if (Integer.valueOf(msg)>maior){
+				maior=Integer.valueOf(msg);
+				cliente=i;
+			}
+			System.out.println("\nMaior valor até o momento: "+maior+" - Enviado pelo cliente "+cliente);
+			//soma+= Integer.valueOf(msg);
+			//System.out.println("\nCom o valor enviado pelo Cliente: "+i+ " - soma = "+soma+"\n");
+			//clientes.get(i).println("valor da soma até o momento " + soma);
+		}else{
+			System.out.println("O cliente "+i+" se desconectou");
+			this.clientes.remove(i);
+			
 		}
-		System.out.println(" Maior valor até o momento: "+maior);
-		soma+= Integer.valueOf(msg);
-		System.out.println(" Com o valor enviado pelo Cliente: "+i+ " - soma = "+soma);
-		clientes.get(i).println("valor da soma até o momento " + soma);
-		
 	}
 }
