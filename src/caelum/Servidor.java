@@ -55,18 +55,19 @@ public class Servidor {
 		
 
 	}
+	int soma=0;
 	public void distribuiMensagem(String msg, int i) {
+		
 		// envia msg para todo mundo
-		try{
-			for (PrintStream cliente : this.clientes) {
-				//cliente.println(msg+" idCliente: "+clientes.indexOf(cliente));
-				if ( clientes.indexOf(cliente) != i )
-					cliente.println(" Cliente "+i +": " + msg);
+		for (PrintStream cliente : this.clientes) {
+			if ( clientes.indexOf(cliente) != i ){
+				cliente.println(" Cliente "+i +": " + msg);
 				
-				System.out.println(" i: "+i);
 			}
-		} catch(Exception e){
-			System.out.println(" Cliente caiu: ");
+			
 		}
+		soma+= Integer.valueOf(msg);
+		System.out.println(" i: "+i+ "soma = "+soma);
+		clientes.get(i).println("valor da soma até o momento " + soma);
 	}
 }
