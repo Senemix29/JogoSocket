@@ -22,11 +22,11 @@ public class Servidor {
 	}
 
 	private int porta;
-	private List<PrintStream> clientes;
+	private List<Socket> clientes;
 
 	public Servidor (int porta) {
 		this.porta = porta;
-		this.clientes = new ArrayList<PrintStream>();
+		this.clientes = new ArrayList<Socket>();
 	}
 
 	public void executa () throws IOException {
@@ -42,16 +42,21 @@ public class Servidor {
 		cliente.getInetAddress().getHostAddress());
 		// adiciona saida do cliente a lista
 		PrintStream ps = new PrintStream(cliente.getOutputStream());
-		this.clientes.add(ps);
-		// cria tratador de cliente numa nova thread
-		TrataCliente tc = new TrataCliente(cliente.getInputStream(), this,i);
-		new Thread(tc).start();
-		i++;
-		
+		this.clientes.add(cliente);
+		if (this.clientes.size()==2){
+			//Broadcast("Todos conectados, vamos jogar?");
+			// cria tratador de cliente numa nova thread
+			TrataCliente tc = new TrataCliente(this.clientes, this,i);
+			new Thread(tc).start();
+			i++;
+		}
+		else{
+			ps.println("Ainda não temos clientes suficientes. Aguarde");
+		}
 	}
 		
 	}
-	int soma=0, maior=0, cliente=0; int cont=0; int lock=1; int aux;
+	int soma=0, maior=0, cliente=0; int cont=0; int lock=1; int cont1=0,cont2=0;
 	
 	public void distribuiMensagem(String msg, int i) {
 		cont++;		
@@ -71,25 +76,27 @@ public class Servidor {
 			//this.clientes.remove(i);		
 		}
 	}
-	public void pare(int i){
-		aux=i;lock=0;	
-		for (PrintStream cli : this.clientes) {
+	/*public void pare(int i){
+		lock=0;	
+		for (Socket cli : this.clientes) {
 			if (clientes.indexOf(cli)==i){
-				clientes.get(i).println("aguarde");
+				clientes.get(i).getOutputStream().println("aguarde");
 				clientes.get(i).println(1);
 			}
 			else
 				clientes.get(i).println(0);
 		}
 	}
-	public void setLock(int l){
-		lock=l;
-	}
+	public void Broadcast(String msg){
+		for(PrintStream cli: this.clientes){
+			cli.println(msg);
+		}
+	}*/
 	public int getLock(){
 		return lock;
 	}
 	public int getId(){
-		return aux;
+		return lock;
 	}
 	
 }
