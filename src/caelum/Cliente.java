@@ -40,11 +40,11 @@ public class Cliente {
 		try{
 			while (teclado.hasNextLine()) {
 				saida.println(teclado.nextLine());
-				cont++;
+				//cont++;
 				
-				if (cont==4){
-					teclado.close();
-				}
+				//if (cont==4){
+				//	teclado.close();
+				//}
 				
 			}
 		}catch(Exception e){

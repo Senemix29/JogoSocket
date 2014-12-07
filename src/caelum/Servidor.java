@@ -58,21 +58,24 @@ public class Servidor {
 	}
 	int soma=0, maior=0, cliente=0; int cont=0; int lock=1; int cont1=0,cont2=0;
 	
-	public void distribuiMensagem(String msg, int i) {
+	public void distribuiMensagem(String msg1, String msg2) {
 		cont++;		
 		
-		if (!(msg.equals("Fim da partida"))){
-			if (Integer.valueOf(msg)>maior){
-				maior=Integer.valueOf(msg);
-				cliente=i;
+		if (!(msg1.equals("Fim da partida")) & !(msg2.equals("Fim da partida"))){
+			if (Integer.valueOf(msg1)>Integer.valueOf(msg2)){
+				maior=Integer.valueOf(msg1);
+				cliente=1;
 			}
-			if (cont%2==0){
-				System.out.println("\nMaior valor é: "+maior+" - Enviado pelo cliente "+cliente);
-				maior=0;
-			}
+			else if(Integer.valueOf(msg1)<Integer.valueOf(msg2)){
+				maior=Integer.valueOf(msg2);
+				cliente=2;
+				
+			}	
+			System.out.println("\nMaior valor é: "+maior+" - Enviado pelo cliente "+cliente);
+			maior=0;
 			
 		}else{
-			System.out.println("O cliente "+i+" se desconectou");
+			System.out.println("O cliente  se desconectou");
 			//this.clientes.remove(i);		
 		}
 	}
