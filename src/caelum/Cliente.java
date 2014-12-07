@@ -14,23 +14,23 @@ public class Cliente {
 	 new Cliente("127.0.0.1", 12345).executa();
 	}
 
-	private String host, ParImpar;
+	private String host, ParImpar,msg="";
 	private int porta;
-	private int dedos;
+	private int lock;
+	private Socket cliSock;
 	
 	public Cliente (String host, int porta) {
 		 this.host = host;
 		 this.porta = porta;
-		 
 		 int i=0;
 	}
 	
 	public void executa() throws UnknownHostException, IOException, ClassNotFoundException {
 		Socket cliente = new Socket(this.host, this.porta);
-		
+		cliSock = cliente;
 		System.out.println("O cliente se conectou ao servidor!");
 		
-		Recebedor r = new Recebedor(cliente.getInputStream());
+		Recebedor r = new Recebedor(cliente.getInputStream(),this);
 		new Thread(r).start();
 	
 		// le msgs do teclado e manda pro servidor
@@ -39,15 +39,33 @@ public class Cliente {
 		int cont=0;
 		try{
 			while (teclado.hasNextLine()) {
+				if (lock==0){
+					System.out.println("aguardando");
+					
+				}else{
+					saida.println(teclado.nextLine());
+					cont++;
+					
+					if (cont==3){
+						teclado.close();
+					}
+				}
+			}
+		}catch(Exception e){
+			saida.println("Fim da partida");
+		}
+		
+		/*try{
+			while (teclado.hasNextLine()) {
 				saida.println(teclado.nextLine());
 				cont++;
-				if (cont==2){
+				if (cont==3){
 					teclado.close();
 				}
 			}
 		}catch(Exception e){
-			saida.println("Se desconectou");
-		}
+			saida.println("Fim da partida");
+		}*/
 		
 		saida.close();
 		teclado.close();
@@ -55,14 +73,14 @@ public class Cliente {
 		
 	}
 	
-	public int getDedos(){
-		return getDedos();
+	public Socket getSock(){
+		return cliSock;
 	}
-	public String getParImpar(){
-		return ParImpar;
+	public void setMSG(String sms){
+		this.msg=sms;
 	}
-	public void setDedos(int numDedo){
-		this.dedos=numDedo;
+	public void setLock(int l){
+		lock=l;
 	}
 	public void setParImpar(String opcao){
 		this.ParImpar=opcao;

@@ -23,7 +23,6 @@ public class Servidor {
 
 	private int porta;
 	private List<PrintStream> clientes;
-	
 
 	public Servidor (int porta) {
 		this.porta = porta;
@@ -44,41 +43,46 @@ public class Servidor {
 		// adiciona saida do cliente a lista
 		PrintStream ps = new PrintStream(cliente.getOutputStream());
 		this.clientes.add(ps);
-
 		// cria tratador de cliente numa nova thread
 		TrataCliente tc =
 		new TrataCliente(cliente.getInputStream(), this,i);
 		new Thread(tc).start();
 		i++;
-	}
-			
 		
-
 	}
-	int soma=0, maior=0, cliente=0;
+		
+	}
+	int soma=0, maior=0, cliente=0; int cont=0; int lock=1; int aux; int aux2;
+	
 	public void distribuiMensagem(String msg, int i) {
+		cont++;		
 		
-		// envia msg para todo mundo
-		for (PrintStream cliente : this.clientes) {
-			if ( clientes.indexOf(cliente) != i ){
-				cliente.println("Cliente "+i +": " + msg);
-				
-			}
-			
-		}
-		if (!(msg.equals("Se desconectou"))){
+		if (!(msg.equals("Fim da partida"))){
 			if (Integer.valueOf(msg)>maior){
 				maior=Integer.valueOf(msg);
 				cliente=i;
 			}
-			System.out.println("\nMaior valor até o momento: "+maior+" - Enviado pelo cliente "+cliente);
-			//soma+= Integer.valueOf(msg);
-			//System.out.println("\nCom o valor enviado pelo Cliente: "+i+ " - soma = "+soma+"\n");
-			//clientes.get(i).println("valor da soma até o momento " + soma);
+			if (cont%2==0){
+				System.out.println("\nMaior valor é: "+maior+" - Enviado pelo cliente "+cliente);
+				maior=0;
+			}
+			
 		}else{
 			System.out.println("O cliente "+i+" se desconectou");
-			this.clientes.remove(i);
-			
+			//this.clientes.remove(i);		
 		}
 	}
+	public void pare(int i){
+		aux=i;
+		clientes.get(i).println("aguarde");
+		clientes.get(i).println(lock);
+		lock=1;
+	}
+	public void setLock(int l){
+		lock=l;
+	}
+	public int getLock(){
+		return lock;
+	}
+	
 }
