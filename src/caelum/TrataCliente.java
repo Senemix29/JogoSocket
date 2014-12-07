@@ -46,8 +46,22 @@ public class TrataCliente implements Runnable {
 			e.printStackTrace();
 		}
 	
-		while (s1.hasNextLine() & s2.hasNextLine()) 
-			servidor.distribuiMensagem(s1.nextLine(),s2.nextLine());
+		while (s1.hasNextInt() & s2.hasNextInt())
+			try {
+				if (s1.hasNextInt()==false){
+					PrintStream cli = new PrintStream(cliente.get(0).getOutputStream());
+					cli.println("Perae");
+				}
+				if (s2.hasNextInt()==false){
+					PrintStream cli = new PrintStream(cliente.get(1).getOutputStream());
+					cli.println("Perae");
+				}
+				
+				servidor.distribuiMensagem(s1.nextLine(),s2.nextLine());
+			} catch (IOException e) {
+				e.printStackTrace();
+
+			}
 		
 		s1.close(); s2.close();
 	}

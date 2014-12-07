@@ -18,6 +18,9 @@ public class Cliente {
 	private int porta;
 	private int lock;
 	private Socket cliSock;
+	Socket cliente;
+	Scanner teclado;
+	PrintStream saida;
 	
 	public Cliente (String host, int porta) {
 		 this.host = host;
@@ -26,7 +29,7 @@ public class Cliente {
 	}
 	
 	public void executa() throws UnknownHostException, IOException, ClassNotFoundException {
-		Socket cliente = new Socket(this.host, this.porta);
+		cliente = new Socket(this.host, this.porta);
 		cliSock = cliente;
 		System.out.println("O cliente se conectou ao servidor!");
 		
@@ -34,21 +37,15 @@ public class Cliente {
 		new Thread(r).start();
 	
 		// le msgs do teclado e manda pro servidor
-		Scanner teclado = new Scanner(System.in);
-		PrintStream saida = new PrintStream(cliente.getOutputStream());
+		teclado = new Scanner(System.in);
+		saida = new PrintStream(cliente.getOutputStream());
 		int cont=0;
 		try{
-			while (teclado.hasNextLine()) {
-				saida.println(teclado.nextLine());
-				//cont++;
-				
-				//if (cont==4){
-				//	teclado.close();
-				//}
-				
+			while (teclado.hasNextInt()) {
+				saida.println(teclado.nextLine());				
 			}
-		}catch(Exception e){
-			saida.println("Fim da partida");
+		}catch(NumberFormatException e){
+			System.out.println("Digite apenas numeros");
 		}
 		
 		
@@ -58,8 +55,11 @@ public class Cliente {
 		
 	}
 	
-	public Socket getSock(){
-		return cliSock;
+	public void fechaSocket() throws IOException{
+		saida.close();
+		teclado.close();
+		cliente.close();
+		
 	}
 	public void setMSG(String sms){
 		this.msg=sms;
