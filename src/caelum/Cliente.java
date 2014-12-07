@@ -39,33 +39,18 @@ public class Cliente {
 		int cont=0;
 		try{
 			while (teclado.hasNextLine()) {
-				if (lock==0){
-					System.out.println("aguardando");
-					
-				}else{
-					saida.println(teclado.nextLine());
-					cont++;
-					
-					if (cont==3){
-						teclado.close();
-					}
+				saida.println(teclado.nextLine());
+				cont++;
+				
+				if (cont==4){
+					teclado.close();
 				}
+				
 			}
 		}catch(Exception e){
 			saida.println("Fim da partida");
 		}
 		
-		/*try{
-			while (teclado.hasNextLine()) {
-				saida.println(teclado.nextLine());
-				cont++;
-				if (cont==3){
-					teclado.close();
-				}
-			}
-		}catch(Exception e){
-			saida.println("Fim da partida");
-		}*/
 		
 		saida.close();
 		teclado.close();

@@ -15,9 +15,7 @@ private Cliente cliente;
 		Scanner s = new Scanner(this.servidor);
 		while (s.hasNextLine()) {
 			System.out.println(s.nextLine());
-			cliente.setLock( Integer.valueOf(s.nextLine()) );
 		}
-		
 		
 	 }
  }

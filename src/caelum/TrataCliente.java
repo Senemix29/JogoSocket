@@ -19,14 +19,11 @@ public class TrataCliente implements Runnable {
 
 	
 	public void run() {
-		auxid=id;
 		// quando chegar uma msg, distribui pra todos
 		Scanner s = new Scanner(this.cliente);
-		while (s.hasNextLine()) {
-			servidor.pare(id);
+		while (s.hasNextLine()) 
 			servidor.distribuiMensagem(s.nextLine(), id);
-			
-		}
+		
 		s.close();
 	}
 }

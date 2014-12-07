@@ -44,15 +44,14 @@ public class Servidor {
 		PrintStream ps = new PrintStream(cliente.getOutputStream());
 		this.clientes.add(ps);
 		// cria tratador de cliente numa nova thread
-		TrataCliente tc =
-		new TrataCliente(cliente.getInputStream(), this,i);
+		TrataCliente tc = new TrataCliente(cliente.getInputStream(), this,i);
 		new Thread(tc).start();
 		i++;
 		
 	}
 		
 	}
-	int soma=0, maior=0, cliente=0; int cont=0; int lock=1; int aux; int aux2;
+	int soma=0, maior=0, cliente=0; int cont=0; int lock=1; int aux;
 	
 	public void distribuiMensagem(String msg, int i) {
 		cont++;		
@@ -73,16 +72,24 @@ public class Servidor {
 		}
 	}
 	public void pare(int i){
-		aux=i;
-		clientes.get(i).println("aguarde");
-		clientes.get(i).println(lock);
-		lock=1;
+		aux=i;lock=0;	
+		for (PrintStream cli : this.clientes) {
+			if (clientes.indexOf(cli)==i){
+				clientes.get(i).println("aguarde");
+				clientes.get(i).println(1);
+			}
+			else
+				clientes.get(i).println(0);
+		}
 	}
 	public void setLock(int l){
 		lock=l;
 	}
 	public int getLock(){
 		return lock;
+	}
+	public int getId(){
+		return aux;
 	}
 	
 }
