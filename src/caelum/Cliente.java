@@ -39,14 +39,18 @@ public class Cliente {
 		// le msgs do teclado e manda pro servidor
 		teclado = new Scanner(System.in);
 		saida = new PrintStream(cliente.getOutputStream());
+		
 		int cont=0;
-		try{
-			while (teclado.hasNextInt()) {
-				saida.println(teclado.nextLine());				
+		
+			while (teclado.hasNextLine()) {
+				try{
+				int n = Integer.parseInt(teclado.nextLine());
+				saida.println(n);				
+				}catch(Exception e){
+					System.out.println("Digite apenas numeros");
+				}	
+					
 			}
-		}catch(NumberFormatException e){
-			System.out.println("Digite apenas numeros");
-		}
 		
 		
 		saida.close();
@@ -58,8 +62,7 @@ public class Cliente {
 	public void fechaSocket() throws IOException{
 		saida.close();
 		teclado.close();
-		cliente.close();
-		
+		cliente.close();	
 	}
 	public void setMSG(String sms){
 		this.msg=sms;
