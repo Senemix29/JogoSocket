@@ -11,10 +11,17 @@ import java.util.Scanner;
 public class Cliente {
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
 	 // dispara cliente
-	 new Cliente("127.0.0.1", 12345).executa();
-	}
+	try{
+		String ip = String.valueOf(args[0]);
+		int porta = Integer.parseInt(args[1]);
+		new Cliente(ip,porta).executa();	
+		}catch(Exception e){
+			System.out.println("Erro nos parametros. Lembre-se, o primeiro parametro é o " +
+					"Ip/host do servidor e o segundo é o numero da porta. Verifique se possui os dados corretos e Execute o cliente novamente");
+		}
+}
 
-	private String host, ParImpar,msg="";
+	private String host,ParImpar,msg="";
 	private int porta;
 	private int lock;
 	private Socket cliSock;
