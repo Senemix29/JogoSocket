@@ -65,6 +65,7 @@ public class Servidor {
 					
 					// cria tratador de jogo com 2 clientes numa nova thread
 					TrataCliente tc = new TrataCliente(this.clientes, this,i);
+					ps.println("Você é o Jogador 2");
 					Broadcast("Todos prontos. Vamos jogar!");
 					Broadcast("Digite um numero:");
 					new Thread(tc).start();
@@ -73,8 +74,8 @@ public class Servidor {
 					i++;
 				}
 				else{
-					ps.println("Ainda não temos clientes suficientes. Aguarde");
-					
+					ps.println("Você é o Jogador 1");
+					ps.println("Ainda não temos clientes suficientes. Aguarde o segundo jogador!");
 				}
 				
 			}
@@ -113,7 +114,7 @@ public class Servidor {
 			if (cont1>cont2){
 				System.out.println("O cliente 1 venceu");
 				Broadcast("O cliente 1 venceu");
-				Broadcast("FIM");
+				Broadcast("Fim do Jogo \nDigite qualquer numero para finalizar");
 				//clientes.get(0).close();
 				//clientes.get(1).close();
 				
@@ -121,7 +122,7 @@ public class Servidor {
 			else{
 				System.out.println("O cliente 1 venceu");
 				Broadcast("O cliente 1 venceu");
-				Broadcast("FIM");
+				Broadcast("Fim do Jogo \nDigite qualquer numero para finalizar");
 				//clientes.get(0).close();
 				//clientes.get(1).close();
 			}

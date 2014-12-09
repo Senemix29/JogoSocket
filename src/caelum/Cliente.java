@@ -49,17 +49,18 @@ public class Cliente {
 		
 		int cont=0;
 		
-			while (teclado.hasNextLine()) {
+			while (teclado.hasNextLine() & cont<3) {
 				try{
 				int n = Integer.parseInt(teclado.nextLine());
-				saida.println(n);				
+				saida.println(n);
+				cont++;
 				}catch(Exception e){
 					System.out.println("Digite apenas numeros");
 				}	
 					
 			}
 		
-		
+		System.out.println("Conexão iterrompida. Obrigado por jogar !");
 		saida.close();
 		teclado.close();
 		cliente.close();
