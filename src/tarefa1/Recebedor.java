@@ -15,16 +15,7 @@ private Cliente cliente;
 		// recebe msgs do servidor e imprime na tela
 		Scanner s = new Scanner(this.servidor);
 		while (s.hasNextLine()) {
-		/*	if(s.nextLine().equals("FIM")){
-				try {
-					System.out.println("Fim de jogo");
-					//cliente.fechaSocket();				
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else{*/
-				System.out.println(s.nextLine());
-			//}
+			System.out.println(s.nextLine());
 		}
 		
 	 }

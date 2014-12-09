@@ -73,9 +73,12 @@ public class Servidor {
 					
 					i++;
 				}
-				else{
-					ps.println("Você é o Jogador 1");
-					ps.println("Ainda não temos clientes suficientes. Aguarde o segundo jogador!");
+				else if (this.clientes.size()==1){
+					ps.println("Você e o Jogador 1");
+					ps.println("Ainda nao temos clientes suficientes. Aguarde o segundo jogador.");
+				} else {
+					ps.println("Sem vagas no momento. Tente mais tarde. Obrigado.");
+					cliente.close();
 				}
 				
 				
@@ -88,6 +91,8 @@ public class Servidor {
 	public void distribuiMensagem(String msg1, String msg2) throws IOException {
 		PrintStream cli = new PrintStream(clientes.get(0).getOutputStream());
 		PrintStream cli2 = new PrintStream(clientes.get(1).getOutputStream());
+		cli.println("Proxima Jogada");
+		cli2.println("Proxima Jogada");
 		
 		if ((msg1.equals(null) | msg1.trim().equals("")) & (msg2.equals(null) | msg2.trim().equals(""))){		
 			cli.println("Mensagem nula");
@@ -115,7 +120,7 @@ public class Servidor {
 			if (cont1>cont2){
 				System.out.println("O cliente 1 venceu");
 				Broadcast("O cliente 1 venceu");
-				Broadcast("Fim do Jogo \nDigite qualquer numero para finalizar");
+				Broadcast("Fim do Jogo \nDigite qualquer tecla para finalizar");
 				//clientes.get(0).close();
 				//clientes.get(1).close();
 				

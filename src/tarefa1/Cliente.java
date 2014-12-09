@@ -38,7 +38,7 @@ public class Cliente {
 	public void executa() throws UnknownHostException, IOException, ClassNotFoundException {
 		cliente = new Socket(this.host, this.porta);
 		cliSock = cliente;
-		System.out.println("O cliente se conectou ao servidor!");
+		System.out.println("Voce se conectou ao servidor!");
 		
 		Recebedor r = new Recebedor(cliente.getInputStream(),this);
 		new Thread(r).start();

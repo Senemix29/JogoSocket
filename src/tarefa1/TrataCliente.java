@@ -51,8 +51,7 @@ public class TrataCliente implements Runnable {
 				if (s2.hasNextInt()==true & s1.hasNextInt()==false){
 					PrintStream cli = new PrintStream(cliente.get(1).getOutputStream());
 					cli.println("Perae");
-				}
-				
+				}			
 				servidor.distribuiMensagem(s1.nextLine(),s2.nextLine());
 			} catch (IOException e) {
 				e.printStackTrace();
