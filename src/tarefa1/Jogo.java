@@ -1,4 +1,4 @@
-package caelum;
+package tarefa1;
 
 public class Jogo {
 

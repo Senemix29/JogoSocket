@@ -1,4 +1,4 @@
-package caelum;
+package tarefa1;
 
 import java.io.IOException;
 import java.io.InputStream;

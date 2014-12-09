@@ -1,4 +1,4 @@
-package caelum;
+package tarefa1;
 
 import java.util.List;
 import java.util.Scanner;
@@ -77,6 +77,7 @@ public class Servidor {
 					ps.println("Você é o Jogador 1");
 					ps.println("Ainda não temos clientes suficientes. Aguarde o segundo jogador!");
 				}
+				
 				
 			}
 		}
